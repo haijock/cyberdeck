@@ -1,0 +1,29 @@
+{
+ "build": {  "name": "Cyberdeck Dev Container",
+    "dockerfile": "Dockerfile",
+    "args": {
+      "USERNAME": "${localEnv:USER:-vscode}",
+      "DEBIAN_FRONTEND": "noninteractive"
+    }
+  },
+  "features": {
+    "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {}
+  },
+  "mounts": [
+    "source=cyberdeck-cache,target=/home/${localEnv:USER:-vscode}/.cache,type=volume",
+    "source=cyberdeck-local-share,target=/home/${localEnv:USER:-vscode}/.local/share,type=volume",
+    "source=cyberdeck-local-state,target=/home/${localEnv:USER:-vscode}/.local/state,type=volume"
+  ],
+  "remoteUser": "${localEnv:USER:-vscode}",
+  "overrideCommand": true,
+  "postCreateCommand": {
+    "setup": "${containerWorkspaceFolder}/.devcontainer/post-create.sh"
+  },
+  "customizations": {
+   "vscode": {
+    "extensions": [
+     "mhutchie.git-graph"
+    ]
+   }
+  }
+}
